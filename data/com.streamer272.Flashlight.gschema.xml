@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="flashlight">
+	<schema id="com.streamer272.Flashlight" path="/com/streamer272/Flashlight/">
+	</schema>
+</schemalist>

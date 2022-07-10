@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=flashlight
+Exec=flashlight
+Icon=com.streamer272.Flashlight
+Terminal=false
+Type=Application
+Categories=GTK;
+StartupNotify=true

@@ -1,0 +1,7 @@
+data/com.streamer272.Flashlight.desktop.in
+data/com.streamer272.Flashlight.appdata.xml.in
+data/com.streamer272.Flashlight.gschema.xml
+src/flashlight-window.ui
+src/main.c
+src/flashlight-window.c
+
