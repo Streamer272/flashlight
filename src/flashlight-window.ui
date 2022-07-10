@@ -3,8 +3,8 @@
   <requires lib="gtk" version="4.0"/>
   <template class="FlashlightWindow" parent="GtkApplicationWindow">
     <property name="title">Flashlight</property>
-    <property name="default-width">600</property>
-    <property name="default-height">300</property>
+    <property name="default-width">400</property>
+    <property name="default-height">400</property>
     <child type="titlebar">
       <object class="GtkHeaderBar" id="header_bar">
         <child type="end">
@@ -16,8 +16,8 @@
       </object>
     </child>
     <child>
-      <object class="GtkModelButton">
-        <property name="text" translatable="yes">Maximize</property>
+      <object class="GtkModelButton" id="maximize_button">
+        <property name="text" translatable="yes"></property>
         <property name="action-name">app.maximize</property>
       </object>
     </child>

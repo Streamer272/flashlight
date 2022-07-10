@@ -25,6 +25,8 @@ struct _FlashlightApplication {
 
 G_DEFINE_TYPE(FlashlightApplication, flashlight_application, GTK_TYPE_APPLICATION)
 
+const char *style = "modelbutton { background-color: white; }";
+
 FlashlightApplication *flashlight_application_new(gchar *application_id, GApplicationFlags flags) {
   return g_object_new(FLASHLIGHT_TYPE_APPLICATION, "application-id", application_id, "flags", flags, NULL);
 }
@@ -37,6 +39,8 @@ static void flashlight_application_finalize(GObject *object) {
 
 static void flashlight_application_activate(GApplication *app) {
   GtkWindow *window;
+  GtkCssProvider *provider;
+  GdkDisplay *display;
 
   /* It's good practice to check your parameters at the beginning of the
    * function. It helps catch errors early and in development instead of
@@ -48,6 +52,11 @@ static void flashlight_application_activate(GApplication *app) {
   window = gtk_application_get_active_window(GTK_APPLICATION(app));
   if (window == NULL)
     window = g_object_new(FLASHLIGHT_TYPE_WINDOW, "application", app, NULL);
+
+  provider = gtk_css_provider_new();
+  display = gdk_display_get_default();
+  gtk_css_provider_load_from_data(provider, style, -1);
+  gtk_style_context_add_provider_for_display(display, GTK_STYLE_PROVIDER(provider), GTK_STYLE_PROVIDER_PRIORITY_USER);
 
   /* Ask the window manager/compositor to present the window. */
   gtk_window_present(window);
