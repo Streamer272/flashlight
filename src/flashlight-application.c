@@ -70,15 +70,32 @@ static void flashlight_application_class_init(FlashlightApplicationClass *klass)
 }
 
 static void flashlight_application_show_about(GSimpleAction *action, GVariant *parameter, gpointer user_data) {
-  FlashlightApplication *self = FLASHLIGHT_APPLICATION (user_data);
+  FlashlightApplication *self = FLASHLIGHT_APPLICATION(user_data);
   GtkWindow *window = NULL;
   const gchar *authors[] = {"Daniel Svitan", NULL};
 
-  g_return_if_fail(FLASHLIGHT_IS_APPLICATION (self));
+  g_return_if_fail(FLASHLIGHT_IS_APPLICATION(self));
 
   window = gtk_application_get_active_window(GTK_APPLICATION(self));
 
-  gtk_show_about_dialog (window, "program-name", "Flashlight", "authors", authors, "version", "0.1.0", NULL);
+  gtk_show_about_dialog(window, "program-name", "Flashlight", "authors", authors, "version", "0.1.0", NULL);
+}
+
+static void flashlight_application_maximize(GSimpleAction *action, GVariant *parameter, gpointer user_data) {
+  FlashlightApplication *self = FLASHLIGHT_APPLICATION(user_data);
+  GtkWindow *window = NULL;
+  
+  g_return_if_fail(FLASHLIGHT_IS_APPLICATION(self));
+  
+  window = gtk_application_get_active_window(GTK_APPLICATION(self));
+
+  gboolean is_maximized = gtk_window_is_maximized(window);
+  if (is_maximized == TRUE) {
+    gtk_window_unmaximize(window);
+  }
+  else {
+    gtk_window_maximize(window);
+  }
 }
 
 static void flashlight_application_init(FlashlightApplication *self) {
@@ -90,6 +107,11 @@ static void flashlight_application_init(FlashlightApplication *self) {
   g_signal_connect(about_action, "activate", G_CALLBACK(flashlight_application_show_about), self);
   g_action_map_add_action(G_ACTION_MAP(self), G_ACTION(about_action));
 
+  g_autoptr(GSimpleAction) maximize_action = g_simple_action_new("maximize", NULL);
+  g_signal_connect(maximize_action, "activate", G_CALLBACK(flashlight_application_maximize), self);
+  g_action_map_add_action(G_ACTION_MAP(self), G_ACTION(maximize_action));
+
   gtk_application_set_accels_for_action(GTK_APPLICATION(self), "app.quit", (const char *[]) { "<primary>q", NULL, });
   gtk_application_set_accels_for_action(GTK_APPLICATION(self), "app.about", (const char *[]) { "<primary>a", NULL, });
+  gtk_application_set_accels_for_action(GTK_APPLICATION(self), "app.maximize", (const char *[]) { "<primary>m", NULL, });
 }

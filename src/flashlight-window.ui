@@ -16,12 +16,9 @@
       </object>
     </child>
     <child>
-      <object class="GtkLabel" id="label">
-        <property name="label">Hello, World!</property>
-        <attributes>
-          <attribute name="weight" value="bold"/>
-          <attribute name="scale" value="2"/>
-        </attributes>
+      <object class="GtkModelButton">
+        <property name="text" translatable="yes">Maximize</property>
+        <property name="action-name">app.maximize</property>
       </object>
     </child>
   </template>
