@@ -2,6 +2,7 @@
 <gresources>
   <gresource prefix="/com/streamer272/Flashlight">
     <file>flashlight-window.ui</file>
+    <file>flashlight-window.css</file>
     <file>gtk/help-overlay.ui</file>
   </gresource>
 </gresources>

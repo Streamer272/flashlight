@@ -25,8 +25,6 @@ struct _FlashlightApplication {
 
 G_DEFINE_TYPE(FlashlightApplication, flashlight_application, GTK_TYPE_APPLICATION)
 
-const char *style = "modelbutton { background-color: white; }";
-
 FlashlightApplication *flashlight_application_new(gchar *application_id, GApplicationFlags flags) {
   return g_object_new(FLASHLIGHT_TYPE_APPLICATION, "application-id", application_id, "flags", flags, NULL);
 }
@@ -46,7 +44,7 @@ static void flashlight_application_activate(GApplication *app) {
    * function. It helps catch errors early and in development instead of
    * by your users.
    */
-  g_assert(GTK_IS_APPLICATION (app));
+  g_assert(GTK_IS_APPLICATION(app));
 
   /* Get the current window or create one if necessary. */
   window = gtk_application_get_active_window(GTK_APPLICATION(app));
@@ -55,13 +53,13 @@ static void flashlight_application_activate(GApplication *app) {
 
   provider = gtk_css_provider_new();
   display = gdk_display_get_default();
-  gtk_css_provider_load_from_data(provider, style, -1);
+  gtk_css_provider_load_from_resource(provider, "/com/streamer272/Flashlight/flashlight-window.css");
+  //gtk_css_provider_load_from_data(provider, style, -1);
   gtk_style_context_add_provider_for_display(display, GTK_STYLE_PROVIDER(provider), GTK_STYLE_PROVIDER_PRIORITY_USER);
 
   /* Ask the window manager/compositor to present the window. */
   gtk_window_present(window);
 }
-
 
 static void flashlight_application_class_init(FlashlightApplicationClass *klass) {
   GObjectClass *object_class = G_OBJECT_CLASS(klass);
@@ -98,12 +96,12 @@ static void flashlight_application_maximize(GSimpleAction *action, GVariant *par
   
   window = gtk_application_get_active_window(GTK_APPLICATION(self));
 
-  gboolean is_maximized = gtk_window_is_maximized(window);
+  gboolean is_maximized = gtk_window_is_fullscreen(window);
   if (is_maximized == TRUE) {
-    gtk_window_unmaximize(window);
+    gtk_window_unfullscreen(window);
   }
   else {
-    gtk_window_maximize(window);
+    gtk_window_fullscreen(window);
   }
 }
 
