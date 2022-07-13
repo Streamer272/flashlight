@@ -85,7 +85,7 @@ static void flashlight_application_show_about(GSimpleAction *action, GVariant *p
 
   window = gtk_application_get_active_window(GTK_APPLICATION(self));
 
-  gtk_show_about_dialog(window, "program-name", "Flashlight", "authors", authors, "version", "0.1.0", NULL);
+  gtk_show_about_dialog(window, "program-name", "Flashlight", "authors", authors, "version", "0.2.0", NULL);
 }
 
 static void flashlight_application_maximize(GSimpleAction *action, GVariant *parameter, gpointer user_data) {
